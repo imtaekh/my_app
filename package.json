@@ -18,6 +18,7 @@
   "homepage": "https://github.com/imtaekh/my_app#readme",
   "dependencies": {
     "ejs": "^2.3.3",
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "mongoose": "^4.1.7"
   }
 }
