@@ -1,3 +1,88 @@
-h1{
-  color:blue;
+/*
+  Base Style
+*/
+a{
+  text-decoration:none;
+  color:inherit;
+}
+a:hover{
+  text-decoration:underline;
+}
+ul{
+  list-style-type: none;
+  padding:0;
+}
+header h1{
+  color:tomato;
+  text-align:center;
+}
+footer{
+  text-align:center;
+  padding: 20px 0;
+}
+
+/*
+  Posts Style
+*/
+
+.posts{
+  max-width: 500px;
+  margin: 0 auto;
+}
+.posts h3{
+  background-color: #75CEF7;
+  padding: 5px 0;
+  padding-left: 2px;
+}
+.posts h2{
+  text-align:center;
+}
+.posts .index ul li{
+  padding: 4px;
+}
+.posts .index ul li>span{
+  float:right;
+}
+.posts .index ul li:nth-child(odd){
+  background-color: #75CEF7;
+}
+.posts .index ul li:nth-child(even){
+  background-color: #A8D8EF;
+}
+.posts .show .body{
+  min-height:70px;
+  white-space: pre-wrap;
+}
+.posts .show .time{
+  float:right;
+  margin:2px;
+  padding: 5px 10px;
+  background-color: #E4E4E4;
+  border: 0 solid black;
+  border-radius: 5px;
+}
+.posts .show .btn_delete{
+  display:inline-block;
+}
+.posts .show .tools{
+  margin-bottom:20px;
+}
+.posts .posts_form{
+  display:block;
+  width: 400px;
+  margin: 0 auto;
+  margin-bottom:20px;
+}
+.posts .posts_form label{
+  display:block;
+  margin:5px 0;
+}
+.posts .posts_form input[type="text"]{
+  width:400px;
+}
+.posts .posts_form textarea{
+  display:block;
+  margin-bottom:10px;
+  width:400px;
+  height: 100px;
 }

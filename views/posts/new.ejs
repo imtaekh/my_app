@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <body>
+    <header>
+      <% include ../partials/header %>
+    </header>
+    <div class="posts">
+    <% include partials/top %>
+<!-- main start-->
+
+<!-- views/posts/index.ejs -->
+<div class="new">
+  <h3>New Post</h3>
+  <form class="posts_form" action="/posts" method="post">
+    <label>Title</label>
+    <input type="text" name="post[title]" value="">
+    <label>Body</label>
+    <textarea name="post[body]"></textarea>
+    <button type="submit">Submit</button>
+  </form>
+  <a href="/posts"><button>Back</button><a>
+</div>
+
+<!-- main end -->
+    </div><!--posts end -->
+    <footer>
+      <% include ../partials/footer %>
+    </footer>
+  </body>
+</html>

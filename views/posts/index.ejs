@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <body>
+    <header>
+      <% include ../partials/header %>
+    </header>
+    <div class="posts">
+    <% include partials/top %>
+<!-- main start-->
+
+<!-- views/posts/index.ejs -->
+<div class="index">
+  <a href="/posts/new"><button>New</button></a>
+  <ul>
+    <% data.forEach(function(e){ %>
+      <li>
+        <a href="/posts/<%= e._id %>"><%= e.title %></a>
+        <span><%= e.createdAt.toLocaleDateString() %></span>
+      </li>
+    <% }) %>
+  </ul>
+</div>
+
+<!-- main end -->
+    </div><!--posts end -->
+    <footer>
+      <% include ../partials/footer %>
+    </footer>
+  </body>
+</html>
