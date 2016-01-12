@@ -15,6 +15,7 @@
 <div class="index">
   <a href="/posts/new"><button>New</button></a>
   <ul>
+      <li class="header"> Title <span>Date</span></li>
     <% data.forEach(function(e){ %>
       <li>
         <a href="/posts/<%= e._id %>"><%= e.title %></a>

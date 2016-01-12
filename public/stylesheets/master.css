@@ -20,6 +20,9 @@ footer{
   text-align:center;
   padding: 20px 0;
 }
+.error_message{
+  color: tomato;
+}
 
 /*
   Posts Style
@@ -41,6 +44,7 @@ footer{
   padding: 4px;
 }
 .posts .index ul li>span{
+  width: 90px;
   float:right;
 }
 .posts .index ul li:nth-child(odd){
@@ -48,6 +52,9 @@ footer{
 }
 .posts .index ul li:nth-child(even){
   background-color: #A8D8EF;
+}
+.posts .index ul li.header{
+  background-color: #cccccc;
 }
 .posts .show .body{
   min-height:70px;
