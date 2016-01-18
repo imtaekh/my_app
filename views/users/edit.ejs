@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <body>
+    <header>
+      <% include ../partials/header %>
+    </header>
+    <div class="users">
+<!-- main start-->
+
+<!-- views/users/edit.ejs -->
+<div class="edir">
+  <h3>Update User Information</h3>
+  <form id="update_user" class="users_form" action="/users/<%= user._id %>?_method=put" method="post">
+    <label>Current Password* <span id="password_error" class="error_message"><%= passwordError?passwordError:"" %></span></label>
+    <input type="text" id="password" name="user[password]" value="">
+    <hr><br>
+    <label>Email* <span id="email_error" class="error_message"><%= emailError?emailError:"" %></span></label>
+    <input type="text" id="email" name="user[email]" value="<%= formData?formData.email:(user?user.email:"") %>">
+    <label>Nickname* <span id="nickname_error" class="error_message"><%= nicknameError?nicknameError:"" %></span></label>
+    <input type="text" id="nickname" name="user[nickname]" value="<%= formData?formData.nickname:(user?user.nickname:"") %>">
+    <label>New Password</label>
+    <input type="text" id="new_password" name="user[newPassword]" value="">
+    <label>Password Confirmation <span id="password_confirmation_error" class="error_message"></span></label>
+    <input type="text" id="password_confirmation" name="user[passwordConfirmation]" value="">
+    <p><small>*Required</small></p>
+    <input type="button" class="submit_btn" value="submit">
+  </form>
+  <a href="javascript:history.back()"><button>Back</button>
+</div>
+<!-- javascript -->
+<script type="text/javascript" src="/js/userform.js"></script>
+
+<!-- main end -->
+    </div><!--users end -->
+    <footer>
+      <% include ../partials/footer %>
+    </footer>
+  </body>
+</html>

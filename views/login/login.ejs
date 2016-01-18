@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <body>
+    <header>
+      <% include ../partials/header %>
+    </header>
+    <div class="login">
+<!-- main start-->
+
+<!-- views/login/login.ejs -->
+<div>
+  <h3>Loggin</h3>
+  <form class="login_form" action="/login" method="post">
+    <label>Email</label>
+    <input type="text" name="email" value="<%= email %>">
+    <label>Password</label>
+    <input type="text" name="password" value="">
+    <% loginError.forEach(function(e){ %>
+        <p class="error_message"><%= e %><p>
+    <% }) %>
+    <button class="submit_btn" type="submit">Submit</button>
+  </form>
+  <a href="javascript:history.back()"><button>Back</button>
+</div>
+
+<!-- main end -->
+    </div><!--login end -->
+    <footer>
+      <% include ../partials/footer %>
+    </footer>
+  </body>
+</html>

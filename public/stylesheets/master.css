@@ -20,6 +20,10 @@ footer{
   text-align:center;
   padding: 20px 0;
 }
+.float_right{
+  float:right;
+  margin-left:5px;
+}
 .error_message{
   color: tomato;
 }
@@ -28,16 +32,22 @@ footer{
   Posts Style
 */
 
-.posts{
+.posts,
+.login,
+.users{
   max-width: 500px;
   margin: 0 auto;
 }
-.posts h3{
+.posts h3,
+.login h3,
+.users h3{
   background-color: #75CEF7;
   padding: 5px 0;
   padding-left: 2px;
 }
-.posts h2{
+.posts h2,
+.login h2,
+.users h2{
   text-align:center;
 }
 .posts .index ul li{
@@ -74,13 +84,17 @@ footer{
 .posts .show .tools{
   margin-bottom:20px;
 }
-.posts .posts_form{
+.posts .posts_form,
+.login .login_form,
+.users .users_form{
   display:block;
   width: 400px;
   margin: 0 auto;
   margin-bottom:20px;
 }
-.posts .posts_form label{
+.posts .posts_form label,
+.login .login_form label,
+.users .users_form label{
   display:block;
   margin:5px 0;
 }
@@ -92,4 +106,16 @@ footer{
   margin-bottom:10px;
   width:400px;
   height: 100px;
+}
+.login .submit_btn,
+.users .submit_btn{
+  display: block;
+  margin-top: 10px;
+}
+.users .show .content{
+  padding-left:15px;
+  padding-bottom:20px;
+}
+.users .show .user_info{
+  font-size: 17px;
 }

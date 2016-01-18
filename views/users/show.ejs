@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <body>
+    <header>
+      <% include ../partials/header %>
+    </header>
+    <div class="users">
+<!-- main start-->
+
+<!-- views/users/show.ejs -->
+<div class="show">
+  <h3>User Info</h3>
+  <div class="content">
+    <p class="user_info">Email<small> : <%= user.email %></small></p>
+    <p class="user_info">Nickname<small> : <%= user.nickname %></small></p>
+    <p class="user_info">Password<small> : <%= user.password %></small></p>
+    <a href="/users/<%=user._id%>/edit"><button>Edit</button></a>
+  </div>
+  <a href="/"><button>Back</button>
+</div>
+
+<!-- main end -->
+    </div><!--users end -->
+    <footer>
+      <% include ../partials/footer %>
+    </footer>
+  </body>
+</html>
