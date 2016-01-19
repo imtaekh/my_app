@@ -19,9 +19,9 @@
     <label>Nickname* <span id="nickname_error" class="error_message"><%= nicknameError?nicknameError:"" %></span></label>
     <input type="text" id="nickname" name="user[nickname]" value="<%= formData?formData.nickname:"" %>">
     <label>Password* <span id="password_error" class="error_message"><%= passwordError?passwordError:"" %></span></label>
-    <input type="text" id="password" name="user[password]" value="">
+    <input type="password" id="password" name="user[password]" value="">
     <label>Password Confirmation* <span id="password_confirmation_error" class="error_message"></span></label>
-    <input type="text" id="password_confirmation" name="user[passwordConfirmation]" value="">
+    <input type="password" id="password_confirmation" name="user[passwordConfirmation]" value="">
     <p><small>*Required</small></p>
     <input type="button" class="submit_btn" value="Submit">
   </form>
