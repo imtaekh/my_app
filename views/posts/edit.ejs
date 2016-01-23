@@ -19,6 +19,7 @@
     <input type="text" name="post[title]" value="<%=data.title%>">
     <label>Body</label>
     <textarea name="post[body]"><%=data.body%></textarea>
+    <div class="float_right">Auther: <%= user.nickname %></div>
     <button type="submit">Submit</button>
   </form>
   <a href="javascript:history.back()"><button>Back</button>

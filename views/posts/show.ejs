@@ -25,6 +25,8 @@
     </div>
   <% } %>
   <p class="body"><%= data.body %><p>
+  <div class="float_right">Auther: <%= data.author.nickname %></div>
+  <% if(user && user.equals(data.author._id)) { %>
   <div class="tools">
     <a href="/posts/<%=data._id%>/edit"><button>Edit</button></a>
     <!-- Delete button here -->
@@ -32,6 +34,7 @@
       <button type="submit">Delete</button>
     </form>
   </div>
+  <% } %>
   <a href="/posts"><button>Back</button>
 </div>
 
