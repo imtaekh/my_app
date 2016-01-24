@@ -13,24 +13,24 @@
 
 <!-- views/posts/show.ejs -->
 <div class="show">
-  <h3><%= data.title %></h3>
+  <h3><%= post.title %></h3>
   <div class="time">Created at <br>
-    <%= data.createdAt.toLocaleDateString() %> <br>
-    <%= data.createdAt.toLocaleTimeString() %>
+    <%= post.createdAt.toLocaleDateString() %> <br>
+    <%= post.createdAt.toLocaleTimeString() %>
   </div>
-  <% if(data.updatedAt) { %>
+  <% if(post.updatedAt) { %>
     <div class="time">Updated at <br>
-      <%= data.updatedAt.toLocaleDateString() %> <br>
-      <%= data.updatedAt.toLocaleTimeString() %>
+      <%= post.updatedAt.toLocaleDateString() %> <br>
+      <%= post.updatedAt.toLocaleTimeString() %>
     </div>
   <% } %>
-  <p class="body"><%= data.body %><p>
-  <div class="float_right">Auther: <%= data.author.nickname %></div>
-  <% if(user && user.equals(data.author._id)) { %>
+  <p class="body"><%= post.body %><p>
+  <div class="float_right">Auther: <%= post.author.nickname %></div>
+  <% if(user && user.equals(post.author._id)) { %>
   <div class="tools">
-    <a href="/posts/<%=data._id%>/edit"><button>Edit</button></a>
+    <a href="/posts/<%=post._id%>/edit"><button>Edit</button></a>
     <!-- Delete button here -->
-    <form class="btn_delete" action="/posts/<%=data._id%>?_method=delete" method="post">
+    <form class="btn_delete" action="/posts/<%=post._id%>?_method=delete" method="post">
       <button type="submit">Delete</button>
     </form>
   </div>

@@ -26,11 +26,11 @@
       <span class="float_right">Date</span>
       <span class="float_right">Author</span>
     </li>
-    <% data.forEach(function(e){ %>
+    <% posts.forEach(function(post){ %>
       <li>
-        <a href="/posts/<%= e._id %>"><%= e.title %></a>
-        <span class="float_right"><%= e.createdAt.toLocaleDateString() %></span>
-        <span class="float_right"><%= e.author.nickname %></span>
+        <a href="/posts/<%= post._id %>"><%= post.title %></a>
+        <span class="float_right"><%= post.createdAt.toLocaleDateString() %></span>
+        <span class="float_right"><%= post.author.nickname %></span>
       </li>
     <% }) %>
   </ul>
