@@ -45,10 +45,7 @@ router.put('/:id', isLoggedIn, checkUserRegValidation, function(req,res){
     if(err) return res.json({success:"false", message:err});
     if(user.authenticate(req.body.user.password)){
       if(req.body.user.newPassword){
-        user.password = req.body.user.newPassword;
-        user.save();
-      } else {
-        delete req.body.user.password;
+        req.body.user.password = user.hash(req.body.user.newPassword);
       }
       User.findByIdAndUpdate(req.params.id, req.body.user, function (err,user) {
         if(err) return res.json({success:"false", message:err});
