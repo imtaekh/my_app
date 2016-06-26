@@ -16,6 +16,7 @@ router.get('/new', function(req,res){
 router.post('/', checkUserRegValidation, function(req,res,next){
   User.create(req.body.user, function (err,user) {
     if(err) return res.json({success:false, message:err});
+    req.flash("loginMessage","Thank you for registration!");
     res.redirect('/login');
   });
 }); // create
@@ -41,13 +42,11 @@ router.get('/:id/edit', isLoggedIn, function(req,res){
 }); // edit
 router.put('/:id', isLoggedIn, checkUserRegValidation, function(req,res){
   if(req.user._id != req.params.id) return res.json({success:false, message:"Unauthrized Attempt"});
-  User.findById(req.params.id, req.body.user, function (err,user) {
+  User.findById(req.params.id, function (err,user) {
     if(err) return res.json({success:"false", message:err});
-    if(user.authenticate(req.body.user.password)){
+    if(user.authenticate(req.body.currentPassword)){
       if(req.body.user.newPassword){
         req.body.user.password = user.hash(req.body.user.newPassword);
-      } else {
-        delete req.body.user.password;
       }
       User.findByIdAndUpdate(req.params.id, req.body.user, function (err,user) {
         if(err) return res.json({success:"false", message:err});

@@ -12,26 +12,46 @@
 
 <!-- views/users/edit.ejs -->
 <div class="edit">
+  <div class="buttons">
+    <button onclick="history.back()">Back</button>
+  </div>
   <h3>Update User Information</h3>
-  <form id="update_user" class="users_form" action="/users/<%= user._id %>?_method=put" method="post">
-    <label>Current Password* <span id="password_error" class="error_message"><%= passwordError?passwordError:"" %></span></label>
-    <input type="password" id="password" name="user[password]" value="">
-    <hr><br>
-    <label>Email* <span id="email_error" class="error_message"><%= emailError?emailError:"" %></span></label>
-    <input type="text" id="email" name="user[email]" value="<%= formData?formData.email:(user?user.email:"") %>">
-    <label>Nickname* <span id="nickname_error" class="error_message"><%= nicknameError?nicknameError:"" %></span></label>
-    <input type="text" id="nickname" name="user[nickname]" value="<%= formData?formData.nickname:(user?user.nickname:"") %>">
-    <label>New Password</label>
-    <input type="password" id="new_password" name="user[newPassword]" value="">
-    <label>Password Confirmation <span id="password_confirmation_error" class="error_message"></span></label>
-    <input type="password" id="password_confirmation" name="user[passwordConfirmation]" value="">
-    <p><small>*Required</small></p>
-    <input type="button" class="submit_btn" value="submit">
+  <form class="checkValidation" action="/users/<%= user._id %>?_method=put" method="post">
+    <div class="inputs">
+      <div class="floats">
+        <label>Current Password*</label>
+        <input class="cvRequired" type="text" name="currentPassword" cvRqErrMsg="Current password is required." cvRqErrTo="#cvErrPassword" value="">
+        <div id="cvErrPassword" class="message"><%= passwordError?passwordError:"" %></div>
+      </div>
+    </div>
+    <div class="inputs">
+      <div class="floats">
+        <label>Email*</label>
+        <input class="cvRequired" type="text" name="user[email]" cvRqErrMsg="Email is required." cvRqErrTo="#emailError" value="<%= formData?formData.email:(user?user.email:"") %>">
+        <div id="cvErrEmail" class="message"><%= emailError?emailError:"" %></div>
+      </div>
+      <div class="floats">
+        <label>Nickname*</label>
+        <input class="cvRequired" type="text" name="user[nickname]" cvRqErrMsg="Nickname is required." cvRqErrTo="#cvErrNickname" value="<%= formData?formData.nickname:(user?user.nickname:"") %>">
+        <div id="cvErrNickname" class="message"><%= nicknameError?nicknameError:"" %></div>
+      </div>
+      <div class="floats">
+        <label>New Password</label>
+        <input class="cvMatch" type="password" name="user[newPassword]" cvMatW="#cvMatWPassword" cvMatErrMsg="Password confirmation doesn't match." cvMatErrTo="#cvErrPasswordConfirmation" value="">
+      </div>
+      <div class="floats">
+        <label>Password Confirmation</label>
+        <input id="cvMatWPassword" type="password" name="user[passwordConfirmation]"value="">
+        <div id="cvErrPasswordConfirmation" class="message"></div>
+      </div>
+      <p><small>*Required</small></p>
+    </div>
+
+    <div class="buttons">
+      <button type="submit">Submit</button>
+    </div>
   </form>
-  <a href="javascript:history.back()"><button>Back</button>
 </div>
-<!-- javascript -->
-<script type="text/javascript" src="/js/userform.js"></script>
 
 <!-- main end -->
     </div><!--users end -->

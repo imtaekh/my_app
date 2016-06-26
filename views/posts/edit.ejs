@@ -13,16 +13,31 @@
 
 <!-- views/posts/index.ejs -->
 <div class="edit">
+  <div class="buttons">
+    <button onclick="history.back()">Back</button>
+  </div>
   <h3>Edit Post</h3>
-  <form class="posts_form" action="/posts/<%=post._id%>?_method=put" method="post">
-    <label>Title</label>
-    <input type="text" name="post[title]" value="<%=post.title%>">
-    <label>Body</label>
-    <textarea name="post[body]"><%=post.body%></textarea>
-    <div class="float_right">Auther: <%= user.nickname %></div>
-    <button type="submit">Submit</button>
+  <form class="checkValidation" action="/posts/<%=post._id%>?_method=put" method="post">
+    <div class="inputs">
+      <div class="floats">
+        <label>Title</label>
+        <input class="cvRequired" type="text" name="post[title]" cvRqErrMsg="Title is required." cvRqErrTo="#cvErrTitle" value="<%=post.title%>">
+        <div id="cvErrTitle" class="message"></div>
+      </div>
+      <div class="floats">
+        <label>Author</label>
+        <input disabled type="text" value="<%= user.nickname %>">
+      </div>
+      <div class="floats">
+        <label>Body</label>
+        <textarea class="cvRequired" name="post[body]" cvRqErrMsg="Body is required." cvRqErrTo="#cvErrBody"><%=post.body%></textarea>
+        <div id="cvErrBody" class="message"></div>
+      </div>
+    </div>
+    <div class="buttons">
+      <button type="submit">Submit</button>
+    </div>
   </form>
-  <a href="javascript:history.back()"><button>Back</button>
 </div>
 
 <!-- main end -->

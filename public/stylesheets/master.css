@@ -1,6 +1,11 @@
-/*
-  Base Style
-*/
+body{
+  color:#0C2E2B;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+}
+header, footer{
+  display:block;
+}
 a{
   text-decoration:none;
   color:inherit;
@@ -12,110 +17,183 @@ ul{
   list-style-type: none;
   padding:0;
 }
-header h1{
+h1{
   color:tomato;
   text-align:center;
+  margin: 0;
+  margin-bottom: 10px;
+}
+h2{
+  text-align:center;
+  margin: 0;
+  margin-bottom: 10px;
+}
+h3{
+  margin: 0;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  background-color: #F5F5F5;
+  padding: 5px 15px;
 }
 footer{
   text-align:center;
-  padding: 20px 0;
+  padding: 10px 0;
+}
+.float_left{
+  float:left;
+  margin-right:10px;
 }
 .float_right{
   float:right;
-  margin-left:5px;
+  margin-left:10px;
 }
-.error_message{
+.message{
+  display: block;
+  clear: both;
   color: tomato;
 }
+table{
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 1px solid #ccc;
+}
+table colgroup .date {
+  width: 100px;
+}
+table colgroup .author {
+  width: 110px;
+}
+table tr{
+  border-bottom: 1px solid #ccc;
+}
+table td, th{
+  padding: 7px 15px;
+}
+table thead tr{
+  background-color: #F5F5F5;
+}
+table tbody tr:hover td:first-child{
+  cursor:pointer;
+  text-decoration: underline;
+}
+table tbody td{
+    cursor:pointer;
+}
+table tbody tr:nth-child(odd){
+  background-color: #F4FFFF;
+}
+table tbody td+td{
+  text-align: center;
+}
+.floats:after{
+  content: "";
+  display: block;
+  clear: both;
+  height: 0;
+  line-height: 0;
+}
+.inputs{
+  padding: 5px 15px;
+  border-bottom: 1px solid #ccc;
+}
+.inputs label{
+  float:left;
+  min-width: 70px;
+  padding: 3px 0;
+  line-height: 20px;
+  margin: 3px 0;
+}
+.inputs input{
+  float:right;
+  width: 180px;
+  height: 20px;
+  padding: 3px 7px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 3px 0;
+}
+.inputs textarea{
+  float:right;
+  resize: vertical;
+  width: 245px;
+  padding: 3px 7px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 3px 0;
+  height: 100px;
+}
+.inputs p{
+  margin: 0;
+}
+.buttons{
+  padding: 0 5px;
+  margin: 7px 0;
+}
+.buttons:after{
+  content: "";
+  display: block;
+  clear: both;
+  height: 0;
+  line-height: 0;
+}
+button{
+  min-width: 55px;
+  color: #165751;
+  border: 1px solid #ccc;
+  border-right: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  border-radius: 4px;
+  padding: 5px 10px;
+  background-color:#f5f5f5;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+button:hover{
+  position: relative;
+  top: 1px;
+  left: 1px;
+  border: 1px solid #ccc;
+  border-top: 1px solid #aaa;
+  border-left: 1px solid #aaa;
+}
 
-/*
-  Posts Style
-*/
-
-.posts,
 .login,
-.users{
-  max-width: 500px;
+.users
+{
+  width: 300px;
   margin: 0 auto;
 }
-.posts h3,
-.login h3,
-.users h3{
-  background-color: #75CEF7;
-  padding: 5px 0;
-  padding-left: 2px;
+.posts .index,
+.posts .show{
+  width: 600px;
+  margin: 0 auto;
 }
-.posts h2,
-.login h2,
-.users h2{
-  text-align:center;
+.posts .new,
+.posts .edit{
+  width: 400px;
+  margin: 0 auto;
 }
-.posts .index ul li{
-  padding: 4px;
-}
-.posts .index ul li>span{
-  width: 90px;
-  float:right;
-}
-.posts .index ul li:nth-child(odd){
-  background-color: #75CEF7;
-}
-.posts .index ul li:nth-child(even){
-  background-color: #A8D8EF;
-}
-.posts .index ul li.header{
-  background-color: #cccccc;
+.posts .show .content{
+  padding: 6px 15px;
+  border-bottom: 1px solid #ccc;
 }
 .posts .show .body{
-  min-height:70px;
-  white-space: pre-wrap;
+  white-space:pre-line;
 }
-.posts .show .time{
-  float:right;
-  margin:2px;
+.posts .show .info>div{
+  margin:5px;
   padding: 5px 10px;
   background-color: #E4E4E4;
   border: 0 solid black;
   border-radius: 5px;
 }
-.posts .show .btn_delete{
-  display:inline-block;
+.posts .show .info .timestamp span{
+  display: inline-block;
+  width: 50px;
 }
-.posts .show .tools{
-  margin-bottom:20px;
+.posts input{
+  width: 280px;
 }
-.posts .posts_form,
-.login .login_form,
-.users .users_form{
-  display:block;
-  width: 400px;
-  margin: 0 auto;
-  margin-bottom:20px;
-}
-.posts .posts_form label,
-.login .login_form label,
-.users .users_form label{
-  display:block;
-  margin:5px 0;
-}
-.posts .posts_form input[type="text"]{
-  width:400px;
-}
-.posts .posts_form textarea{
-  display:block;
-  margin-bottom:10px;
-  width:400px;
-  height: 100px;
-}
-.login .submit_btn,
-.users .submit_btn{
-  display: block;
-  margin-top: 10px;
-}
-.users .show .content{
-  padding-left:15px;
-  padding-bottom:20px;
-}
-.users .show .user_info{
-  font-size: 17px;
+.posts textarea{
+  width: 280px;
 }

@@ -13,29 +13,32 @@
 
 <!-- views/posts/show.ejs -->
 <div class="show">
+  <div class="buttons floats">
+    <% if(user && user.equals(post.author._id)) { %>
+      <form class="float_right" action="/posts/<%=post._id%>?_method=delete" method="post">
+        <button type="button" onclick="confirm('Your post will be deleted')?this.parentElement.submit():null;">Delete</button>
+      </form>
+      <button class="float_right" onclick="location.href='/posts/<%=post._id%>/edit'">Edit</button>
+    <% } %>
+    <button class="float_left" onclick="location.href='/posts'">Back</button>
+  </div>
   <h3><%= post.title %></h3>
-  <div class="time">Created at <br>
-    <%= post.createdAt.toLocaleDateString() %> <br>
-    <%= post.createdAt.toLocaleTimeString() %>
-  </div>
-  <% if(post.updatedAt) { %>
-    <div class="time">Updated at <br>
-      <%= post.updatedAt.toLocaleDateString() %> <br>
-      <%= post.updatedAt.toLocaleTimeString() %>
+  <div class="content floats">
+    <div class="info float_right">
+      <div>
+        Author: <%= post.author.nickname %>
+      </div>
+      <div class="timestamp"><span>Created:</span>
+        <%= post.getCreatedTime() %>, <%= post.getCreatedDate() %>
+      </div>
+      <% if(post.updatedAt) { %>
+        <div class="timestamp"><span>Updated:</span>
+          <%= post.getCreatedTime() %>, <%= post.getCreatedDate() %>
+        </div>
+      <% } %>
     </div>
-  <% } %>
-  <p class="body"><%= post.body %><p>
-  <div class="float_right">Auther: <%= post.author.nickname %></div>
-  <% if(user && user.equals(post.author._id)) { %>
-  <div class="tools">
-    <a href="/posts/<%=post._id%>/edit"><button>Edit</button></a>
-    <!-- Delete button here -->
-    <form class="btn_delete" action="/posts/<%=post._id%>?_method=delete" method="post">
-      <button type="submit">Delete</button>
-    </form>
+    <div class="body"><%= post.body %></div>
   </div>
-  <% } %>
-  <a href="/posts"><button>Back</button>
 </div>
 
 <!-- main end -->

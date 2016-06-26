@@ -11,20 +11,32 @@
 <!-- main start-->
 
 <!-- views/login/login.ejs -->
-<div>
-  <h3>Loggin</h3>
-  <form class="login_form" action="/login" method="post">
-    <label>Email</label>
-    <input type="text" name="email" value="<%= email %>">
-    <label>Password</label>
-    <input type="password" name="password" value="">
-    <% loginError.forEach(function(e){ %>
-        <p class="error_message"><%= e %><p>
-    <% }) %>
-    <button class="submit_btn" type="submit">Submit</button>
-  </form>
-  <a href="javascript:history.back()"><button>Back</button>
+<div class="message"><%= loginMessage %></div>
+<div class="buttons">
+  <button onclick="location.href='/'" class="float_left">Home</button>
+  <button onclick="location.href='/users/new'" class="float_right">Sign Up</button>
 </div>
+<h3>Login</h3>
+<form class="checkValidation" action="/login" method="post">
+  <div class="inputs">
+    <div class="floats">
+      <label>Email</label>
+      <input class="cvRequired" type="text" name="email" cvRqErrMsg="Please enter your login email." cvRqErrTo="#cvRqErrEmail" value="">
+      <div id="cvRqErrEmail" class="message"></div>
+    </div>
+    <div class="floats">
+      <label>Password</label>
+      <input class="cvRequired" type="password" name="password" cvRqErrMsg="Please enter your password." cvRqErrTo="#cvRqErrPassword" value="">
+      <div id="cvRqErrPassword" class="message"></div>
+    </div>
+    <% loginError.forEach(function(e){ %>
+        <div class="message"><%= e %><div>
+    <% }) %>
+  </div>
+  <div class="buttons">
+    <button type="submit">Submit</button>
+  </div>
+</form>
 
 <!-- main end -->
     </div><!--login end -->
