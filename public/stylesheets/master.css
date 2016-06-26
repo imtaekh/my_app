@@ -156,6 +156,12 @@ button:hover{
   border-top: 1px solid #aaa;
   border-left: 1px solid #aaa;
 }
+.pagination{
+  text-align: center;
+}
+.pagination li{
+  display: inline;
+}
 
 .login,
 .users
