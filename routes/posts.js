@@ -4,6 +4,12 @@ var mongoose = require('mongoose');
 var Post     = require('../models/Post');
 
 router.get('/', function(req,res){
+  var Counter = require('../models/Counter');
+  var vistorCounter = null;
+  Counter.findOne({name:"vistors"}, function (err,counter) {
+    if(!err) vistorCounter = counter;
+  });
+
   var page = Math.max(1,req.query.page);
   var limit = 10;
   Post.count({},function(err,count){
@@ -13,7 +19,8 @@ router.get('/', function(req,res){
     Post.find().populate("author").sort('-createdAt').skip(skip).limit(limit).exec(function (err,posts) {
       if(err) return res.json({success:false, message:err});
       res.render("posts/index",{
-            posts:posts, user:req.user, page:page, maxPage:maxPage, postsMessage:req.flash("postsMessage")[0]
+            posts:posts, user:req.user, page:page, maxPage:maxPage,
+            counter:vistorCounter, postsMessage:req.flash("postsMessage")[0]
           });
     });
   });

@@ -203,3 +203,6 @@ button:hover{
 .posts textarea{
   width: 280px;
 }
+.posts .index .counter{
+  padding-left: 10px;
+}

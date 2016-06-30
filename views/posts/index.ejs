@@ -63,6 +63,12 @@
       <% } %>
     <%}%>
   </ul>
+  <div class="counter">
+    <% if(counter){ %>
+      Total <%= counter.totalCount %> visitors<br>
+      (today: <%= counter.todayCount %>)
+    <% } %>
+  </div>
 </div>
 
 <!-- main end -->
