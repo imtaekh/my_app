@@ -40,8 +40,13 @@
       </tr>
     </thead>
     <tbody>
+      <% if(posts == null || posts.length == 0){ %>
+          <tr class="noData">
+            <td colspan="3">There is no data to show :(</td>
+          </tr>
+      <% } %>
       <% posts.forEach(function(post){ %>
-        <tr onclick="window.location = '/posts/<%= post._id %>?page=<%= page %>'">
+        <tr onclick="window.location = '/posts/<%= post._id %>?<%= urlQuery %>'">
           <td><%= post.title %></td>
           <td><%= post.getCreatedDate() %></td>
           <td><%= post.author.nickname %></td>
@@ -50,11 +55,15 @@
     </tbody>
   </table>
   <ul class="pagination">
-    <% var offset = 3; %>
+    <%
+      var offset = 3;
+      var partialQuery;
+      if(urlQuery) partialQuery = "&"+urlQuery.replace(/page=(.*?)(&|$)/ig,"");
+    %>
     <% for(i=1;i<=maxPage;i++){ %>
       <% if(i<=offset || i>maxPage-offset || (i>=page-(offset-1) && i<=page+(offset-1))){ %>
         <% if(i != page){ %>
-          <li>[<a href="/posts?page=<%= i %>"> <%= i %> </a>]</li>
+          <li>[<a href="/posts?page=<%= i %><%= partialQuery %>"> <%= i %> </a>]</li>
         <% } else { %>
           <li>[ <b><%= i %></b> ]</li>
         <% } %>
@@ -63,11 +72,32 @@
       <% } %>
     <%}%>
   </ul>
-  <div class="counter">
-    <% if(counter){ %>
-      Total <%= counter.totalCount %> visitors<br>
-      (today: <%= counter.todayCount %>)
-    <% } %>
+  <div class="floats">
+    <div class="counter float_left">
+      <% if(counter){ %>
+        Total <%= counter.totalCount %> visitors<br>
+        (today: <%= counter.todayCount %>)
+      <% } %>
+    </div>
+    <div class="search float_right">
+      <form class="checkValidation" action="/posts/" id="search">
+        <select name="searchType">
+          <% var select %>
+          <option value="title,body"
+            <%= search.searchType=="title,body"?select="selected":"" %>>Title+Body</option>
+          <option value="title"
+            <%= search.searchType=="title"?select="selected":"" %>>Title</option>
+          <option value="body"
+            <%= search.searchType=="body"?select="selected":"" %>>Body</option>
+        </select>
+        <input class="cvMinLength" cvMinLength="3"
+          cvMinLenErrTo="#searchError"
+          cvMinLenErrMsg="It should be at least 3 characters"
+          type="text" name="searchText" value="<%= select?search.searchText:"" %>">
+        <button type="submit">search</button>
+        <div class="message" id="searchError"></div>
+      </form>
+    </div>
   </div>
 </div>
 

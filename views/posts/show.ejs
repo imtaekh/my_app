@@ -20,7 +20,7 @@
       </form>
       <button class="float_right" onclick="location.href='/posts/<%=post._id%>/edit'">Edit</button>
     <% } %>
-    <button class="float_left" onclick="location.href='/posts?page=<%=page%>'">Back</button>
+    <button class="float_left" onclick="location.href='/posts?<%= urlQuery %>'">Back</button>
   </div>
   <h3><%= post.title %></h3>
   <div class="content floats">

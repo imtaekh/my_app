@@ -1,3 +1,6 @@
+*{
+  outline: none;
+}
 body{
   color:#0C2E2B;
   font-family: 'Open Sans', sans-serif;
@@ -73,11 +76,18 @@ table thead tr{
   background-color: #F5F5F5;
 }
 table tbody tr:hover td:first-child{
-  cursor:pointer;
   text-decoration: underline;
 }
+table tbody tr.noData,
+table tbody tr.noData:hover td:first-child,
+table tbody tr.noData td{
+  cursor:default;
+  text-decoration: none;
+  background-color: #FFFFFF;
+  text-align: center;
+}
 table tbody td{
-    cursor:pointer;
+  cursor:pointer;
 }
 table tbody tr:nth-child(odd){
   background-color: #F4FFFF;
@@ -205,4 +215,41 @@ button:hover{
 }
 .posts .index .counter{
   padding-left: 10px;
+}
+.posts .index .search{
+  height:40px;
+}
+.posts .index .search select{
+  float: left;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid #ccc;
+  border-radius: 0;
+  background-color: white;
+  padding: 0px 3px;
+  width: 70px;
+  height:19px;
+}
+.posts .index .search select::after{
+  content: "v";
+}
+.posts .index .search input[type='text']{
+  float: left;
+  margin-left: 2px;
+  border: 1px solid #ccc;
+  border-radius: 0;
+  background-color: white;
+  padding: 1px 3px;
+  width: 120px;
+  height:15px;
+}
+select::-ms-expand { /* for IE 11 */
+    display: none;
+}
+.posts .index .search button[type='submit']{
+  float: left;
+  color: #714d4d;
+  padding: 2px;
+  margin-left: 2px;
 }

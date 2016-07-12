@@ -29,6 +29,19 @@ $(function(){
       }
     });
 
+    cvForm.find("input.cvMinLength").each(function(){
+      var cvMinLength = $(this);
+      var minLength = cvMinLength.attr("cvMinLength");
+      var cvMinLenErrMsg = cvMinLength.attr("cvMinLenErrMsg");
+      var cvMinLenErrTo = $(cvMinLength.attr("cvMinLenErrTo"));
+      if(cvMinLength.val().length < minLength){
+        isValid = false;
+        cvMinLenErrTo.text(cvMinLenErrMsg);
+      } else {
+        cvMinLenErrTo.text("");
+      }
+    });
+
     if(!isValid){
       if(e.preventDefault) e.preventDefault();
       else return false;
