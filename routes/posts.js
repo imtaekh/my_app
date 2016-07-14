@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var Post     = require('../models/Post');
 var Counter  = require('../models/Counter');
 var async    = require('async');
+var User     = require('../models/User');
 
 router.get('/', function(req,res){
   var vistorCounter = null;
@@ -18,6 +19,22 @@ router.get('/', function(req,res){
         callback(null);
       });
     },function(callback){
+      if(!search.findUser) return callback(null);
+      User.find(search.findUser,function(err,users){
+        if(err) callback(err);
+        var or = [];
+        users.forEach(function(user){
+          or.push({author:mongoose.Types.ObjectId(user._id)});
+        });
+        if(search.findPost.$or){
+          search.findPost.$or = search.findPost.$or.concat(or);
+        } else if(or.length>0){
+          search.findPost = {$or:or};
+        }
+        callback(null);
+      });
+    },function(callback){
+      if(search.findUser && !search.findPost.$or) return callback(null, null, 0);
       Post.count(search.findPost,function(err,count){
         if(err) callback(err);
         skip = (page-1)*limit;
@@ -25,16 +42,18 @@ router.get('/', function(req,res){
         callback(null, skip, maxPage);
       });
     },function(skip, maxPage, callback){
+      if(search.findUser && !search.findPost.$or) return callback(null, [], 0);
       Post.find(search.findPost).populate("author").sort('-createdAt').skip(skip).limit(limit).exec(function (err,posts) {
         if(err) callback(err);
-        return res.render("posts/index",{
-          posts:posts, user:req.user, page:page, maxPage:maxPage,
-          urlQuery:req._parsedUrl.query, search:search,
-          counter:vistorCounter, postsMessage:req.flash("postsMessage")[0]
-        });
+        callback(null, posts, maxPage);
       });
-    }],function(err){
+    }],function(err, posts, maxPage){
       if(err) return res.json({success:false, message:err});
+      return res.render("posts/index",{
+        posts:posts, user:req.user, page:page, maxPage:maxPage,
+        urlQuery:req._parsedUrl.query, search:search,
+        counter:vistorCounter, postsMessage:req.flash("postsMessage")[0]
+      });
     });
 }); // index
 router.get('/new', isLoggedIn, function(req,res){
@@ -86,7 +105,7 @@ function isLoggedIn(req, res, next) {
 module.exports = router;
 
 function createSearch(queries){
-  var findPost = {};
+  var findPost = {}, findUser = null;
   if(queries.searchType && queries.searchText && queries.searchText.length >= 3){
     var searchTypes = queries.searchType.toLowerCase().split(",");
     var postQueries = [];
@@ -96,8 +115,13 @@ function createSearch(queries){
     if(searchTypes.indexOf("body")>=0){
       postQueries.push({ body : { $regex : new RegExp(queries.searchText, "i") } });
     }
+    if(searchTypes.indexOf("author!")>=0){
+      findUser = { nickname : queries.searchText };
+    } else if(searchTypes.indexOf("author")>=0){
+      findUser = { nickname : { $regex : new RegExp(queries.searchText, "i") } };
+    }
     if(postQueries.length > 0) findPost = {$or:postQueries};
   }
   return { searchType:queries.searchType, searchText:queries.searchText,
-    findPost:findPost};
+    findPost:findPost, findUser:findUser };
 }

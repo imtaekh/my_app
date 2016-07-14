@@ -166,6 +166,16 @@ button:hover{
   border-top: 1px solid #aaa;
   border-left: 1px solid #aaa;
 }
+button[disabled]{
+  color: #999 !important;
+}
+button[disabled]:hover{
+  top: 0 !important;
+  left: 0 !important;
+  border: 1px solid #ccc !important;
+  border-right: 1px solid #aaa !important;
+  border-bottom: 1px solid #aaa !important;
+}
 .pagination{
   text-align: center;
 }
@@ -247,7 +257,7 @@ button:hover{
 select::-ms-expand { /* for IE 11 */
     display: none;
 }
-.posts .index .search button[type='submit']{
+.posts .index .search button{
   float: left;
   color: #714d4d;
   padding: 2px;

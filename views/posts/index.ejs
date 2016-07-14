@@ -81,7 +81,7 @@
     </div>
     <div class="search float_right">
       <form class="checkValidation" action="/posts/" id="search">
-        <select name="searchType">
+        <select name="searchType" <%= search.searchType=="author!"?"disabled":"" %>>
           <% var select %>
           <option value="title,body"
             <%= search.searchType=="title,body"?select="selected":"" %>>Title+Body</option>
@@ -89,12 +89,23 @@
             <%= search.searchType=="title"?select="selected":"" %>>Title</option>
           <option value="body"
             <%= search.searchType=="body"?select="selected":"" %>>Body</option>
+          <%if(search.searchType=="author!"){%>
+            <option value="author!"
+              <%= search.searchType=="author!"?select="selected":"" %>>Author</option>
+          <%} else {%>
+            <option value="author"
+              <%= search.searchType=="author"?select="selected":"" %>>Author</option>
+          <%}%>
         </select>
         <input class="cvMinLength" cvMinLength="3"
           cvMinLenErrTo="#searchError"
           cvMinLenErrMsg="It should be at least 3 characters"
-          type="text" name="searchText" value="<%= select?search.searchText:"" %>">
-        <button type="submit">search</button>
+          type="text" name="searchText" value="<%= select?search.searchText:"" %>"
+          <%= search.searchType=="author!"?"disabled":"" %>>
+        <button type="submit" <%= search.searchType=="author!"?"disabled":"" %>>search</button>
+        <%if(search.searchType){%>
+          <button type="button" onclick="window.location = '/posts?page=1'">cancel</button>
+        <%}%>
         <div class="message" id="searchError"></div>
       </form>
     </div>
