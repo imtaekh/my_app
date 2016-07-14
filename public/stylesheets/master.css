@@ -55,6 +55,9 @@ footer{
   clear: both;
   color: tomato;
 }
+.searchHighligt {
+  background-color: yellow;
+}
 table{
   width: 100%;
   border-collapse: collapse;

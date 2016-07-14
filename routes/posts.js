@@ -69,7 +69,8 @@ router.post('/', isLoggedIn, function(req,res){
 router.get('/:id', function(req,res){
   Post.findById(req.params.id).populate("author").exec(function (err,post) {
     if(err) return res.json({success:false, message:err});
-    res.render("posts/show", {post:post, urlQuery:req._parsedUrl.query, user:req.user});
+    res.render("posts/show", {post:post, urlQuery:req._parsedUrl.query,
+      user:req.user, search:createSearch(req.query)});
   });
 }); // show
 router.get('/:id/edit', isLoggedIn, function(req,res){
@@ -105,23 +106,27 @@ function isLoggedIn(req, res, next) {
 module.exports = router;
 
 function createSearch(queries){
-  var findPost = {}, findUser = null;
+  var findPost = {}, findUser = null, highlight = {};
   if(queries.searchType && queries.searchText && queries.searchText.length >= 3){
     var searchTypes = queries.searchType.toLowerCase().split(",");
     var postQueries = [];
     if(searchTypes.indexOf("title")>=0){
       postQueries.push({ title : { $regex : new RegExp(queries.searchText, "i") } });
+      highlight.title = queries.searchText;
     }
     if(searchTypes.indexOf("body")>=0){
       postQueries.push({ body : { $regex : new RegExp(queries.searchText, "i") } });
+      highlight.body = queries.searchText;
     }
     if(searchTypes.indexOf("author!")>=0){
       findUser = { nickname : queries.searchText };
+      highlight.author = queries.searchText;
     } else if(searchTypes.indexOf("author")>=0){
       findUser = { nickname : { $regex : new RegExp(queries.searchText, "i") } };
+      highlight.author = queries.searchText;
     }
     if(postQueries.length > 0) findPost = {$or:postQueries};
   }
   return { searchType:queries.searchType, searchText:queries.searchText,
-    findPost:findPost, findUser:findUser };
+    findPost:findPost, findUser:findUser, highlight:highlight };
 }

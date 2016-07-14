@@ -47,9 +47,9 @@
       <% } %>
       <% posts.forEach(function(post){ %>
         <tr onclick="window.location = '/posts/<%= post._id %>?<%= urlQuery %>'">
-          <td><%= post.title %></td>
+          <td class="highlight" data-highlight="<%= search.highlight.title %>"><%= post.title %></td>
           <td><%= post.getCreatedDate() %></td>
-          <td><%= post.author.nickname %></td>
+          <td class="highlight" data-highlight="<%= search.highlight.author %>"><%= post.author.nickname %></td>
         </tr>
       <% }) %>
     </tbody>
