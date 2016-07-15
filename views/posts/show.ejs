@@ -22,11 +22,19 @@
     <% } %>
     <button class="float_left" onclick="location.href='/posts?<%= urlQuery %>'">Back</button>
   </div>
-  <h3 class="highlight" data-highlight="<%= search.highlight.title %>"><%= post.title %></h3>
+  <h3>
+    <%= post.numId %>.
+    <span class="highlight" data-highlight="<%= search.highlight.title %>">
+      <%= post.title %>
+    </span>
+  </h3>
   <div class="content floats">
     <div class="info float_right">
       <div class="highlight" data-highlight="<%= search.highlight.author %>">
         Author: <%= post.author.nickname %>
+      </div>
+      <div>
+        <%= post.views %> views
       </div>
       <div class="timestamp"><span>Created:</span>
         <%= post.getCreatedTime() %>, <%= post.getCreatedDate() %>

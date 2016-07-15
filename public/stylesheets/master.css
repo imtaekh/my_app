@@ -63,6 +63,10 @@ table{
   border-collapse: collapse;
   border-top: 1px solid #ccc;
 }
+table colgroup .num,
+table colgroup .views {
+  width: 70px;
+}
 table colgroup .date {
   width: 100px;
 }
@@ -78,11 +82,11 @@ table td, th{
 table thead tr{
   background-color: #F5F5F5;
 }
-table tbody tr:hover td:first-child{
+table tbody tr:hover td:first-child+td{
   text-decoration: underline;
 }
 table tbody tr.noData,
-table tbody tr.noData:hover td:first-child,
+table tbody tr.noData:hover td:first-child+td,
 table tbody tr.noData td{
   cursor:default;
   text-decoration: none;
@@ -90,13 +94,14 @@ table tbody tr.noData td{
   text-align: center;
 }
 table tbody td{
+  text-align: center;
   cursor:pointer;
 }
 table tbody tr:nth-child(odd){
   background-color: #F4FFFF;
 }
-table tbody td+td{
-  text-align: center;
+table tbody td:first-child+td{
+  text-align: left;
 }
 .floats:after{
   content: "";
@@ -194,12 +199,12 @@ button[disabled]:hover{
 }
 .posts .index,
 .posts .show{
-  width: 600px;
+  width: 700px;
   margin: 0 auto;
 }
 .posts .new,
 .posts .edit{
-  width: 400px;
+  width: 600px;
   margin: 0 auto;
 }
 .posts .show .content{
@@ -221,10 +226,10 @@ button[disabled]:hover{
   width: 50px;
 }
 .posts input{
-  width: 280px;
+  width: 480px;
 }
 .posts textarea{
-  width: 280px;
+  width: 480px;
 }
 .posts .index .counter{
   padding-left: 10px;

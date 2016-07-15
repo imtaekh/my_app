@@ -60,15 +60,35 @@ router.get('/new', isLoggedIn, function(req,res){
   res.render("posts/new", {user:req.user});
 }); // new
 router.post('/', isLoggedIn, function(req,res){
-  req.body.post.author=req.user._id;
-  Post.create(req.body.post,function (err,post) {
-    if(err) return res.json({success:false, message:err});
-    res.redirect('/posts');
+  async.waterfall([function(callback){
+    Counter.findOne({name:"posts"}, function (err,counter) {
+      if(err) callback(err);
+      if(counter){
+         callback(null, counter);
+      } else {
+        Counter.create({name:"posts",totalCount:0},function(err,counter){
+          if(err) return res.json({success:false, message:err});
+          callback(null, counter);
+        });
+      }
+    });
+  }],function(callback, counter){
+    var newPost = req.body.post;
+    newPost.author = req.user._id;
+    newPost.numId = counter.totalCount+1;
+    Post.create(req.body.post,function (err,post) {
+      if(err) return res.json({success:false, message:err});
+      counter.totalCount++;
+      counter.save();
+      res.redirect('/posts');
+    });
   });
 }); // create
 router.get('/:id', function(req,res){
   Post.findById(req.params.id).populate("author").exec(function (err,post) {
     if(err) return res.json({success:false, message:err});
+    post.views++;
+    post.save();
     res.render("posts/show", {post:post, urlQuery:req._parsedUrl.query,
       user:req.user, search:createSearch(req.query)});
   });
