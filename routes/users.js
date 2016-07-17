@@ -52,13 +52,12 @@ router.put('/:id', isLoggedIn, checkUserRegValidation, function(req,res){
   User.findById(req.params.id, function (err,user) {
     if(err) return res.json({success:"false", message:err});
     if(user.authenticate(req.body.currentPassword)){
-      if(req.body.user.newPassword){
-        req.body.user.password = user.hash(req.body.user.newPassword);
-      }
-      User.findByIdAndUpdate(req.params.id, req.body.user, function (err,user) {
+      if(req.body.user.newPassword) user.password = req.body.user.newPassword;
+      user.mapObject(req.body.user);
+      user.save(function(err){
         if(err) return res.json({success:"false", message:err});
-        res.redirect('/users/'+req.params.id);
       });
+      res.redirect('/users/'+req.params.id);
     } else {
       req.flash("formData", req.body.user);
       req.flash("passwordError", "- Invalid password");
