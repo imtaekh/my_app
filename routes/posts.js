@@ -44,7 +44,9 @@ router.get('/', function(req,res){
       });
     },function(skip, maxPage, callback){
       if(search.findUser && !search.findPost.$or) return callback(null, [], 0);
-      Post.find(search.findPost).populate("author").sort('-createdAt').skip(skip).limit(limit).exec(function (err,posts) {
+      Post.find(search.findPost, {title:1, author:1, views:1, numId:1, comments:1, createdAt:1})
+      .populate({path:'author',select:'nickname'}).sort('-createdAt').skip(skip).limit(limit)
+      .exec(function (err,posts) {
         if(err) callback(err);
         callback(null, posts, maxPage);
       });
@@ -93,7 +95,7 @@ router.post('/', isLoggedIn, function(req,res){
 // show
 router.get('/:id', function(req,res){
   Post.findById(req.params.id)
-  .populate(['author','comments.author'])
+  .populate([{path:'author'},{path:'comments.author'}])
   .exec(function (err,post) {
     if(err) return res.json({success:false, message:err});
     post.views++;
@@ -146,8 +148,7 @@ router.delete('/:postId/comments/:commentId', function(req,res){
   Post.update({_id:req.params.postId},{$pull:{comments:{_id:req.params.commentId}}},
     function(err,post){
       if(err) return res.json({success:false, message:err});
-      res.redirect('/posts/'+req.params.postId+"?"+
-                   req._parsedUrl.query.replace(/_method=(.*?)(&|$)/ig,""));
+      res.redirect('/posts/'+req.params.postId+"?"+req._parsedUrl.query.replace(/_method=(.*?)(&|$)/ig,""));
   });
 });
 
