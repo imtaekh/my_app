@@ -38,6 +38,14 @@ h3{
   background-color: #F5F5F5;
   padding: 5px 15px;
 }
+h4{
+  margin: 0;
+}
+textarea, input{
+  padding: 3px 7px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
 footer{
   text-align:center;
   padding: 10px 0;
@@ -125,18 +133,12 @@ table tbody td:first-child+td{
   float:right;
   width: 180px;
   height: 20px;
-  padding: 3px 7px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
   margin: 3px 0;
 }
 .inputs textarea{
   float:right;
   resize: vertical;
   width: 245px;
-  padding: 3px 7px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
   margin: 3px 0;
   height: 100px;
 }
@@ -207,24 +209,6 @@ button[disabled]:hover{
   width: 600px;
   margin: 0 auto;
 }
-.posts .show .content{
-  padding: 6px 15px;
-  border-bottom: 1px solid #ccc;
-}
-.posts .show .body{
-  white-space:pre-line;
-}
-.posts .show .info>div{
-  margin:5px;
-  padding: 5px 10px;
-  background-color: #E4E4E4;
-  border: 0 solid black;
-  border-radius: 5px;
-}
-.posts .show .info .timestamp span{
-  display: inline-block;
-  width: 50px;
-}
 .posts input{
   width: 480px;
 }
@@ -270,4 +254,66 @@ select::-ms-expand { /* for IE 11 */
   color: #714d4d;
   padding: 2px;
   margin-left: 2px;
+}
+.posts .index .comments{
+  font-size: 10px;
+}
+.posts .show .content{
+  padding: 6px 15px 20px;
+  border-bottom: 1px solid #ccc;
+}
+.posts .show .body{
+  white-space:pre-line;
+}
+.posts .show .info>div{
+  margin:5px;
+  padding: 5px 10px;
+  background-color: #E4E4E4;
+  border: 0 solid black;
+  border-radius: 5px;
+}
+.posts .show .info .timestamp span{
+  display: inline-block;
+  width: 50px;
+}
+.posts .show .comments{
+  padding-top: 20px;
+  clear: both;
+}
+.posts .show .comments h4{
+  width: 630px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 3px;
+  margin-bottom: 10px;
+}
+.posts .show .comments .comment{
+  margin-bottom: 10px;
+}
+.posts .show .comments form{
+  display: inline-block;
+  position : relative;
+}
+.posts .show .comment .body{
+  word-break: break-all;
+  margin-left: 5px;
+  width: 545px;
+}
+.posts .show .comment .delete button{
+  position:relative;
+  top:-1px;
+  padding: 1px 4px;
+  line-height: 10px;
+  min-width: 0;
+}
+.posts .show .addComment textarea{
+  width: 544px;
+  padding-left: 3px;
+  resize: vertical;
+}
+.posts .show .addComment textarea[disabled]{
+  background-color:white
+}
+.posts .show .addComment button{
+  margin-left: 5px;
+  float:right;
 }

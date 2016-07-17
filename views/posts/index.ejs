@@ -52,9 +52,12 @@
       <% posts.forEach(function(post){ %>
         <tr onclick="window.location = '/posts/<%= post._id %>?<%= urlQuery %>'">
           <td><%= post.numId %></td>
-          <td class="highlight" data-highlight="<%= search.highlight.title %>"><%= post.title %></td>
+          <td class="highlight" data-highlight="<%= search.highlight.title %>">
+            <%= post.title %>
+            <span class="comments">(<%= post.comments.length %>)</span>
+          </td>
           <td><%= post.views %></td>
-          <td><%= post.getCreatedDate() %></td>
+          <td><%= post.getFormattedDate(post.createdAt) %></td>
           <td class="highlight" data-highlight="<%= search.highlight.author %>"><%= post.author.nickname %></td>
         </tr>
       <% }) %>

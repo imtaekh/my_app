@@ -85,7 +85,9 @@ router.post('/', isLoggedIn, function(req,res){
   });
 }); // create
 router.get('/:id', function(req,res){
-  Post.findById(req.params.id).populate("author").exec(function (err,post) {
+  Post.findById(req.params.id)
+  .populate(['author','comments.author'])
+  .exec(function (err,post) {
     if(err) return res.json({success:false, message:err});
     post.views++;
     post.save();
@@ -115,6 +117,23 @@ router.delete('/:id', isLoggedIn, function(req,res){
     res.redirect('/posts');
   });
 }); //destroy
+router.post('/:id/comments', function(req,res){
+  var newComment = req.body.comment;
+  newComment.author = req.user._id;
+  Post.update({_id:req.params.id},{$push:{comments:newComment}},function(err,post){
+    if(err) return res.json({success:false, message:err});
+    res.redirect('/posts/'+req.params.id+"?"+req._parsedUrl.query);
+  });
+}); //create a comment
+router.delete('/:postId/comments/:commentId', function(req,res){
+  Post.update({_id:req.params.postId},{$pull:{comments:{_id:req.params.commentId}}},
+    function(err,post){
+      if(err) return res.json({success:false, message:err});
+      res.redirect('/posts/'+req.params.postId+"?"+
+                   req._parsedUrl.query.replace(/_method=(.*?)(&|$)/ig,""));
+  });
+}); //destroy a comment
+
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()){
     return next();
