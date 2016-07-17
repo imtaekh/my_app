@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(cookieParser());
 app.use(methodOverride("_method"));
 app.use(flash());
-app.use(session({secret:'MySecret'}));
+app.use(session({secret:'MySecret', resave: false, saveUninitialized:true}));
 app.use(countVisitors);
 
 // passport

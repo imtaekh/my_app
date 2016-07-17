@@ -22,8 +22,10 @@ postSchema.methods.getFormattedDate = function (date) {
 postSchema.methods.getFormattedTime = function (date) {
   return get2digits(date.getHours()) + ":" + get2digits(date.getMinutes())+ ":" + get2digits(date.getSeconds());
 };
+
+var Post = mongoose.model('post',postSchema);
+module.exports = Post;
+
 function get2digits(num){
   return ("0" + num).slice(-2);
 }
-var Post = mongoose.model('post',postSchema);
-module.exports = Post;

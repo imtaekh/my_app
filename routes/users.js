@@ -4,42 +4,49 @@ var mongoose = require('mongoose');
 var User     = require('../models/User');
 var async    = require('async');
 
+// new
 router.get('/new', function(req,res){
   res.render('users/new', {
-                            formData: req.flash('formData')[0],
-                            emailError: req.flash('emailError')[0],
-                            nicknameError: req.flash('nicknameError')[0],
-                            passwordError: req.flash('passwordError')[0]
-                          }
-  );
-}); // new
+    formData: req.flash('formData')[0],
+    emailError: req.flash('emailError')[0],
+    nicknameError: req.flash('nicknameError')[0],
+    passwordError: req.flash('passwordError')[0]
+  });
+});
+
+// create
 router.post('/', checkUserRegValidation, function(req,res,next){
   User.create(req.body.user, function (err,user) {
     if(err) return res.json({success:false, message:err});
     req.flash("loginMessage","Thank you for registration!");
     res.redirect('/login');
   });
-}); // create
+});
+
+// show
 router.get('/:id', isLoggedIn, function(req,res){
     User.findById(req.params.id, function (err,user) {
       if(err) return res.json({success:false, message:err});
       res.render("users/show", {user: user});
     });
-}); // show
+});
+
+// edit
 router.get('/:id/edit', isLoggedIn, function(req,res){
   if(req.user._id != req.params.id) return res.json({success:false, message:"Unauthrized Attempt"});
   User.findById(req.params.id, function (err,user) {
     if(err) return res.json({success:false, message:err});
     res.render("users/edit", {
-                              user: user,
-                              formData: req.flash('formData')[0],
-                              emailError: req.flash('emailError')[0],
-                              nicknameError: req.flash('nicknameError')[0],
-                              passwordError: req.flash('passwordError')[0]
-                             }
-    );
+      user: user,
+      formData: req.flash('formData')[0],
+      emailError: req.flash('emailError')[0],
+      nicknameError: req.flash('nicknameError')[0],
+      passwordError: req.flash('passwordError')[0]
+    });
   });
-}); // edit
+});
+
+// update
 router.put('/:id', isLoggedIn, checkUserRegValidation, function(req,res){
   if(req.user._id != req.params.id) return res.json({success:false, message:"Unauthrized Attempt"});
   User.findById(req.params.id, function (err,user) {
@@ -58,7 +65,9 @@ router.put('/:id', isLoggedIn, checkUserRegValidation, function(req,res){
       res.redirect('/users/'+req.params.id+"/edit");
     }
   });
-}); //update
+});
+
+module.exports = router;
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()){
@@ -78,7 +87,7 @@ function checkUserRegValidation(req, res, next) {
             isValid = false;
             req.flash("emailError","- This email is already resistered.");
           }
-          callback(null, isValid);
+          callback(err, isValid);
         }
       );
     }, function(isValid, callback) {
@@ -88,7 +97,7 @@ function checkUserRegValidation(req, res, next) {
             isValid = false;
             req.flash("nicknameError","- This nickname is already resistered.");
           }
-          callback(null, isValid);
+          callback(err, isValid);
         }
       );
     }], function(err, isValid) {
@@ -102,5 +111,3 @@ function checkUserRegValidation(req, res, next) {
     }
   );
 }
-
-module.exports = router;

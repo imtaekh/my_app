@@ -7,9 +7,10 @@ var userSchema = mongoose.Schema({
   password: {type:String, required:true},
   createdAt: {type:Date, default:Date.now}
 });
+
 userSchema.pre("save", hashPassword);
+
 userSchema.pre("findOneAndUpdate", function hashPassword(next){
-  console.log(this._update);
   var user = this._update;
   if(!user.newPassword){
     delete user.password;
@@ -32,7 +33,6 @@ var User = mongoose.model('user',userSchema);
 module.exports = User;
 
 function hashPassword(next){
-  console.log("hi");
   var user = this;
   if(!user.isModified("password")){
     return next();

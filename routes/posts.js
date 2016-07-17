@@ -6,6 +6,7 @@ var Counter  = require('../models/Counter');
 var async    = require('async');
 var User     = require('../models/User');
 
+// index
 router.get('/', function(req,res){
   var vistorCounter = null;
   var page = Math.max(1,req.query.page)>1?parseInt(req.query.page):1;
@@ -55,10 +56,14 @@ router.get('/', function(req,res){
         counter:vistorCounter, postsMessage:req.flash("postsMessage")[0]
       });
     });
-}); // index
+});
+
+// new
 router.get('/new', isLoggedIn, function(req,res){
   res.render("posts/new", {user:req.user});
-}); // new
+});
+
+// create
 router.post('/', isLoggedIn, function(req,res){
   async.waterfall([function(callback){
     Counter.findOne({name:"posts"}, function (err,counter) {
@@ -83,7 +88,9 @@ router.post('/', isLoggedIn, function(req,res){
       res.redirect('/posts');
     });
   });
-}); // create
+});
+
+// show
 router.get('/:id', function(req,res){
   Post.findById(req.params.id)
   .populate(['author','comments.author'])
@@ -94,14 +101,18 @@ router.get('/:id', function(req,res){
     res.render("posts/show", {post:post, urlQuery:req._parsedUrl.query,
       user:req.user, search:createSearch(req.query)});
   });
-}); // show
+});
+
+// edit
 router.get('/:id/edit', isLoggedIn, function(req,res){
   Post.findById(req.params.id, function (err,post) {
     if(err) return res.json({success:false, message:err});
     if(!req.user._id.equals(post.author)) return res.json({success:false, message:"Unauthrized Attempt"});
     res.render("posts/edit", {post:post, user:req.user});
   });
-}); // edit
+});
+
+// update
 router.put('/:id', isLoggedIn, function(req,res){
   req.body.post.updatedAt=Date.now();
   Post.findOneAndUpdate({_id:req.params.id, author:req.user._id}, req.body.post, function (err,post) {
@@ -109,14 +120,18 @@ router.put('/:id', isLoggedIn, function(req,res){
     if(!post) return res.json({success:false, message:"No data found to update"});
     res.redirect('/posts/'+req.params.id);
   });
-}); //update
+});
+
+// destroy
 router.delete('/:id', isLoggedIn, function(req,res){
   Post.findOneAndRemove({_id:req.params.id, author:req.user._id}, function (err,post) {
     if(err) return res.json({success:false, message:err});
     if(!post) return res.json({success:false, message:"No data found to delete"});
     res.redirect('/posts');
   });
-}); //destroy
+});
+
+// comments/create
 router.post('/:id/comments', function(req,res){
   var newComment = req.body.comment;
   newComment.author = req.user._id;
@@ -124,7 +139,9 @@ router.post('/:id/comments', function(req,res){
     if(err) return res.json({success:false, message:err});
     res.redirect('/posts/'+req.params.id+"?"+req._parsedUrl.query);
   });
-}); //create a comment
+});
+
+// comments/destroy
 router.delete('/:postId/comments/:commentId', function(req,res){
   Post.update({_id:req.params.postId},{$pull:{comments:{_id:req.params.commentId}}},
     function(err,post){
@@ -132,7 +149,9 @@ router.delete('/:postId/comments/:commentId', function(req,res){
       res.redirect('/posts/'+req.params.postId+"?"+
                    req._parsedUrl.query.replace(/_method=(.*?)(&|$)/ig,""));
   });
-}); //destroy a comment
+});
+
+module.exports = router;
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()){
@@ -141,8 +160,6 @@ function isLoggedIn(req, res, next) {
   req.flash("postsMessage","Please login first.");
   res.redirect('/');
 }
-
-module.exports = router;
 
 function createSearch(queries){
   var findPost = {}, findUser = null, highlight = {};
