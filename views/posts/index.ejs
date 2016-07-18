@@ -49,8 +49,9 @@
             <td colspan="5">There is no data to show :(</td>
           </tr>
       <% } %>
+      <% query = urlQuery('?'); %>
       <% posts.forEach(function(post){ %>
-        <tr onclick="window.location = '/posts/<%= post._id %>?<%= urlQuery %>'">
+        <tr onclick="window.location = '/posts/<%= post._id %><%= query %>'">
           <td><%= post.numId %></td>
           <td class="highlight" data-highlight="<%= search.highlight.title %>">
             <%= post.title %>
@@ -66,8 +67,7 @@
   <ul class="pagination">
     <%
       var offset = 3;
-      var partialQuery;
-      if(urlQuery) partialQuery = "&"+urlQuery.replace(/page=(.*?)(&|$)/ig,"");
+      var partialQuery = urlQuery("&",["page"]);
     %>
     <% for(i=1;i<=maxPage;i++){ %>
       <% if(i<=offset || i>maxPage-offset || (i>=page-(offset-1) && i<=page+(offset-1))){ %>

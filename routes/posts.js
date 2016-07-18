@@ -54,7 +54,7 @@ router.get('/', function(req,res){
       if(err) return res.json({success:false, message:err});
       return res.render("posts/index",{
         posts:posts, user:req.user, page:page, maxPage:maxPage,
-        urlQuery:req._parsedUrl.query, search:search,
+        urlQuery:createQuery(req._parsedUrl.query), search:search,
         counter:vistorCounter, postsMessage:req.flash("postsMessage")[0]
       });
     });
@@ -186,4 +186,23 @@ function createSearch(queries){
   }
   return { searchType:queries.searchType, searchText:queries.searchText,
     findPost:findPost, findUser:findUser, highlight:highlight };
+}
+
+function createQuery(queryString){
+  return function(connectorChar, deleteArray){
+    var newQueryString = queryString?queryString:"";
+    if(deleteArray){
+      deleteArray.forEach(function(e){
+        var regex = new RegExp(e+"=(.*?)(&|$)", "ig");
+        newQueryString = newQueryString.replace(regex,"");
+      });
+    }
+    if(newQueryString){
+      newQueryString = newQueryString.replace(/&$/,"");
+    }
+    if(newQueryString){
+      newQueryString = connectorChar+newQueryString;
+    }
+    return newQueryString;
+  };
 }
