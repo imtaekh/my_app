@@ -14,10 +14,10 @@
 <!-- views/posts/index.ejs -->
 <div class="edit">
   <div class="buttons">
-    <button onclick="history.back()">Back</button>
+    <button onclick="location.href='/posts<%= urlQuery('?') %>'">Back</button>
   </div>
   <h3>Edit Post</h3>
-  <form class="checkValidation" action="/posts/<%=post._id%>?_method=put" method="post">
+  <form class="checkValidation" action="/posts/<%= post._id + urlQuery('?') %>&_method=put" method="post">
     <div class="inputs">
       <div class="floats">
         <label>Title</label>

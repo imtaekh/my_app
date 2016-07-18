@@ -12,12 +12,13 @@
 <!-- main start-->
 
 <!-- views/posts/index.ejs -->
+<% query = urlQuery('?') %>
 <div class="index">
 <div class="message">
   <%= postsMessage %>
 </div>
   <div class="buttons">
-    <button class="float_left" onclick="location.href='/posts/new'">New</button>
+    <button class="float_left" onclick="location.href='/posts/new<%= urlQuery('?') %>'">New</button>
     <% if(user) {%>
       <button class="float_right" onclick="location.href='/logout'">Logout</button>
       <button class="float_right" onclick="location.href='/users/<%= user._id %>'">My Profile (<%= user.nickname %>)</button>
@@ -49,9 +50,8 @@
             <td colspan="5">There is no data to show :(</td>
           </tr>
       <% } %>
-      <% query = urlQuery('?'); %>
       <% posts.forEach(function(post){ %>
-        <tr onclick="window.location = '/posts/<%= post._id %><%= query %>'">
+        <tr onclick="window.location = '/posts/<%= post._id + query %>'">
           <td><%= post.numId %></td>
           <td class="highlight" data-highlight="<%= search.highlight.title %>">
             <%= post.title %>

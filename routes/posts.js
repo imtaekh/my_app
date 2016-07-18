@@ -62,7 +62,7 @@ router.get('/', function(req,res){
 
 // new
 router.get('/new', isLoggedIn, function(req,res){
-  res.render("posts/new", {user:req.user});
+  res.render("posts/new", {user:req.user,urlQuery:createQuery(req._parsedUrl.query)});
 });
 
 // create
@@ -87,7 +87,7 @@ router.post('/', isLoggedIn, function(req,res){
       if(err) return res.json({success:false, message:err});
       counter.totalCount++;
       counter.save();
-      res.redirect('/posts');
+      res.redirect('/posts/'+post._id+createQuery(req._parsedUrl.query)('?',['page','searchType','searchText']));
     });
   });
 });
@@ -100,7 +100,7 @@ router.get('/:id', function(req,res){
     if(err) return res.json({success:false, message:err});
     post.views++;
     post.save();
-    res.render("posts/show", {post:post, urlQuery:req._parsedUrl.query,
+    res.render("posts/show", {post:post, urlQuery:createQuery(req._parsedUrl.query),
       user:req.user, search:createSearch(req.query)});
   });
 });
@@ -110,7 +110,7 @@ router.get('/:id/edit', isLoggedIn, function(req,res){
   Post.findById(req.params.id, function (err,post) {
     if(err) return res.json({success:false, message:err});
     if(!req.user._id.equals(post.author)) return res.json({success:false, message:"Unauthrized Attempt"});
-    res.render("posts/edit", {post:post, user:req.user});
+    res.render("posts/edit", {post:post, user:req.user, urlQuery:createQuery(req._parsedUrl.query)});
   });
 });
 
@@ -120,7 +120,7 @@ router.put('/:id', isLoggedIn, function(req,res){
   Post.findOneAndUpdate({_id:req.params.id, author:req.user._id}, req.body.post, function (err,post) {
     if(err) return res.json({success:false, message:err});
     if(!post) return res.json({success:false, message:"No data found to update"});
-    res.redirect('/posts/'+req.params.id);
+    res.redirect('/posts/'+req.params.id+createQuery(req._parsedUrl.query)('?',['_method']));
   });
 });
 
@@ -129,7 +129,7 @@ router.delete('/:id', isLoggedIn, function(req,res){
   Post.findOneAndRemove({_id:req.params.id, author:req.user._id}, function (err,post) {
     if(err) return res.json({success:false, message:err});
     if(!post) return res.json({success:false, message:"No data found to delete"});
-    res.redirect('/posts');
+    res.redirect('/posts'+createQuery(req._parsedUrl.query)('?',['_method']));
   });
 });
 

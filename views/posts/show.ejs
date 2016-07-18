@@ -15,12 +15,12 @@
 <div class="show">
   <div class="buttons floats">
     <% if(user && user.equals(post.author._id)) { %>
-      <form class="float_right" action="/posts/<%=post._id%>?_method=delete" method="post">
+      <form class="float_right" action="/posts/<%= post._id + urlQuery("?") %>&_method=delete" method="post">
         <button type="button" onclick="confirm('Your post will be deleted')?this.parentElement.submit():null;">Delete</button>
       </form>
-      <button class="float_right" onclick="location.href='/posts/<%=post._id%>/edit'">Edit</button>
+      <button class="float_right" onclick="location.href='/posts/<%= post._id %>/edit<%= urlQuery("?") %>'">Edit</button>
     <% } %>
-    <button class="float_left" onclick="location.href='/posts?<%= urlQuery %>'">Back</button>
+    <button class="float_left" onclick="location.href='/posts<%= urlQuery("?") %>'">Back</button>
   </div>
   <h3>
     <%= post.numId %>.

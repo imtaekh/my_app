@@ -39,7 +39,7 @@ app.use(passport.session());
 // routes
 app.use('/', require('./routes/home'));
 app.use('/users', require('./routes/users'));
-app.use('/posts', require('./routes/posts'));
+app.use('/posts', checkQuery, require('./routes/posts'));
 
 // start server
 var port = process.env.PORT || 3000;
@@ -74,4 +74,30 @@ function countVisitors(req,res,next){
     }
   }
   return next();
+}
+
+function checkQuery(req, res, next){
+  if(req.originalMethod != "GET") return next();
+
+  var path = req._parsedUrl.pathname;
+  var queryString = req._parsedUrl.query?req._parsedUrl.query:"";
+  if(queryString.indexOf("page=")<0){
+    if(queryString.length !== 0 ) queryString += "&";
+    queryString += "page=1";
+  }
+  if(queryString.indexOf("limit=")<0){
+    queryString += "&limit=10";
+  }
+  if(queryString.indexOf("searchType=")<0){
+    queryString += "&searchType=";
+  }
+  if(queryString.indexOf("searchText=")<0){
+    queryString += "&searchText=";
+  }
+
+  if(queryString == req._parsedUrl.query){
+    return next();
+  } else {
+    return res.redirect(path+"?"+queryString);
+  }
 }

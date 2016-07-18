@@ -14,10 +14,10 @@
 <!-- views/posts/index.ejs -->
 <div class="new">
   <div class="buttons">
-    <button onclick="location.href='/posts'">Back</button>
+    <button onclick="location.href='/posts<%= urlQuery('?') %>'">Back</button>
   </div>
   <h3>New Post</h3>
-  <form class="checkValidation" action="/posts" method="post">
+  <form class="checkValidation" action="/posts<%= urlQuery('?') %>" method="post">
     <div class="inputs">
       <div class="floats">
         <label>Title</label>
