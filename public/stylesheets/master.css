@@ -266,16 +266,27 @@ select::-ms-expand { /* for IE 11 */
 .posts .show .body{
   white-space:pre-line;
 }
-.posts .show .info>div{
+.posts .show .info{
+  font-size: 11px;
   margin:5px;
   padding: 5px 10px;
   background-color: #E4E4E4;
   border: 0 solid black;
   border-radius: 5px;
 }
+.posts .show .info>div{
+  padding: 5px 0 ;
+  border-top: 1px dotted #999;
+}
+.posts .show .info>div:first-child{
+  border: none;
+}
 .posts .show .info .timestamp span{
   display: inline-block;
-  width: 50px;
+  width: 47px;
+}
+.posts .show .info .timestamp .updatedAt{
+  margin-top: 5px;
 }
 .posts .show .comments{
   padding-top: 20px;

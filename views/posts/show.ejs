@@ -36,14 +36,16 @@
       <div>
         <%= post.views %> views
       </div>
-      <div class="timestamp"><span>Created:</span>
-        <%= post.getFormattedTime(post.createdAt) %>, <%= post.getFormattedDate(post.createdAt) %>
-      </div>
-      <% if(post.updatedAt) { %>
-        <div class="timestamp"><span>Updated:</span>
-          <%= post.getFormattedTime(post.updatedAt) %>, <%= post.getFormattedDate(post.updatedAt) %>
+      <div class="timestamp">
+        <div class="createdAt">
+          <span>Created:</span> <%= post.getFormattedDate(post.createdAt) %>, <%= post.getFormattedTime(post.createdAt) %>
         </div>
-      <% } %>
+        <% if(post.updatedAt) { %>
+          <div class="updatedAt">
+          <span>Updated:</span> <%= post.getFormattedDate(post.updatedAt) %>, <%= post.getFormattedTime(post.updatedAt) %>
+          </div>
+        <% } %>
+      </div>
     </div>
     <div class="body highlight" data-highlight="<%= search.highlight.body %>"><%= post.body %></div>
     <div class="comments">
@@ -53,8 +55,8 @@
           <div class="comment">
             <div class="top">
               <b><%= comment.author.nickname %></b>
-              (<%= post.getFormattedTime(comment.createdAt) %>,
-              <%= post.getFormattedDate(comment.createdAt) %>)
+              (<%= post.getFormattedDate(comment.createdAt) %>,
+              <%= post.getFormattedTime(comment.createdAt) %>)
               <% if(user && user.equals(comment.author._id)) { %>
                 <form class="delete"  method="post"
                   action="/posts/<%=post._id%>/comments/<%=comment._id + urlQuery('?') %>&_method=delete&">
