@@ -71,21 +71,25 @@ table{
   border-collapse: collapse;
   border-top: 1px solid #ccc;
 }
-table colgroup .num,
-table colgroup .views {
-  width: 50px;
-}
-table colgroup .date {
-  width: 90px;
-}
-table colgroup .author {
-  width: 100px;
-}
 table tr{
   border-bottom: 1px solid #ccc;
 }
 table td, th{
-  padding: 7px;
+  padding: 7px 5px;
+}
+table .num{
+  width: 40px;
+  padding-left: 15px;
+}
+table .views {
+  width: 40px;
+}
+table .date {
+  width: 80px;
+  padding-right: 15px;
+}
+table .author {
+  width: 100px;
 }
 table thead tr{
   background-color: #F5F5F5;
