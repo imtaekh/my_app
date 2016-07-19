@@ -16,11 +16,11 @@
   <div class="buttons floats">
     <% if(user && user.equals(post.author._id)) { %>
       <form class="float_right" action="/posts/<%= post._id + urlQuery("?") %>&_method=delete" method="post">
-        <button type="button" onclick="confirm('Your post will be deleted')?this.parentElement.submit():null;">Delete</button>
+        <input class="button" type="button" value="Delete" onclick="confirm('Your post will be deleted')?this.parentElement.submit():null;">
       </form>
-      <button class="float_right" onclick="location.href='/posts/<%= post._id %>/edit<%= urlQuery("?") %>'">Edit</button>
+      <a class="button float_right" href="/posts/<%= post._id %>/edit<%= urlQuery('?') %>">Edit</a>
     <% } %>
-    <button class="float_left" onclick="location.href='/posts<%= urlQuery("?") %>'">Back</button>
+    <a class="button float_left" href="/posts<%= urlQuery('?') %>">Back</a>
   </div>
   <h3>
     <%= post.numId %>.
@@ -57,11 +57,9 @@
               <%= post.getFormattedDate(comment.createdAt) %>)
               <% if(user && user.equals(comment.author._id)) { %>
                 <form class="delete"  method="post"
-                  action="/posts/<%=post._id%>/comments/<%=comment._id%>?_method=delete&<%= urlQuery %>">
-                  <button type="button"
+                  action="/posts/<%=post._id%>/comments/<%=comment._id + urlQuery('?') %>&_method=delete&">
+                  <input class="button" type="button" value="x"
                     onclick="confirm('Your comment will be deleted')?this.parentElement.submit():null;">
-                    x
-                  </button>
                 </form>
               <% } %>
             </div>
@@ -70,11 +68,11 @@
         <% }) %>
       <% } %>
       <form class="addComment checkValidation"
-        action="/posts/<%=post._id%>/comments?<%= urlQuery %>" method="post">
+        action="/posts/<%=post._id%>/comments<%= urlQuery('?') %>" method="post">
         <textarea class="cvRequired" type="text" name="comment[body]"
           cvRqErrMsg="comments is empty." cvRqErrTo="#cvErrTitle" <%= user?"":"disabled" %>
           placeholder="<%= user?"Add comment here":"Please login to make a comment" %>"></textarea>
-        <button type="submit" <%= user?"":"disabled" %>>Comment</button>
+        <input class="button" type="submit" value="Comment"<%= user?"":"disabled" %>>
         <div id="cvErrTitle" class="message"></div>
       </form>
     </div>

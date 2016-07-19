@@ -14,7 +14,7 @@
 <!-- views/posts/index.ejs -->
 <div class="new">
   <div class="buttons">
-    <button onclick="location.href='/posts<%= urlQuery('?') %>'">Back</button>
+    <a class="button" href="/posts<%= urlQuery('?') %>">Back</a>
   </div>
   <h3>New Post</h3>
   <form class="checkValidation" action="/posts<%= urlQuery('?') %>" method="post">
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="buttons">
-      <button type="submit">Submit</button>
+      <input class="button" type="submit" value="Submit">
     </div>
   </form>
 </div>

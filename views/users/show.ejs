@@ -13,8 +13,8 @@
 <!-- views/users/show.ejs -->
 <div class="show">
   <div class="buttons floats">
-    <button onclick="location.href='/'">Home</button>
-    <button onclick="location.href='/users/<%=user._id%>/edit'" class="float_right">Edit</button>
+    <a class="button" href="/">Home</a>
+    <a class="button float_right" href="/users/<%=user._id%>/edit">Edit</a>
   </div>
   <h3>User Info</h3>
   <div class="inputs">

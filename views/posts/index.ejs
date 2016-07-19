@@ -18,13 +18,13 @@
   <%= postsMessage %>
 </div>
   <div class="buttons">
-    <button class="float_left" onclick="location.href='/posts/new<%= urlQuery('?') %>'">New</button>
+    <a class="button float_left" href="/posts/new<%= urlQuery('?') %>">New</a>
     <% if(user) {%>
-      <button class="float_right" onclick="location.href='/logout'">Logout</button>
-      <button class="float_right" onclick="location.href='/users/<%= user._id %>'">My Profile (<%= user.nickname %>)</button>
+      <a class="button float_right" href="/logout">Logout</a>
+      <a class="button float_right" href="/users/<%= user._id %>">My Profile (<%= user.nickname %>)</a>
     <% } else { %>
-      <button class="float_right" onclick="location.href='/login'">Login</button>
-      <button class="float_right" onclick="location.href='/users/new'">Sign Up</button>
+      <a class="button float_right" href="/login">Login</a>
+      <a class="button float_right" href="/users/new">Sign Up</a>
     <% } %>
   </div>
   <table>
@@ -32,16 +32,16 @@
       <col class="num"/>
       <col class="title"/>
       <col class="views"/>
-      <col class="date"/>
       <col class="author"/>
+      <col class="date"/>
     </colgroup>
     <thead>
       <tr>
         <th>Num</th>
         <th>Title</th>
         <th>Views</th>
-        <th>Date</th>
         <th>Author</th>
+        <th>Date</th>
       </tr>
     </thead>
     <tbody>
@@ -51,15 +51,17 @@
           </tr>
       <% } %>
       <% posts.forEach(function(post){ %>
-        <tr onclick="window.location = '/posts/<%= post._id + query %>'">
-          <td><%= post.numId %></td>
-          <td class="highlight" data-highlight="<%= search.highlight.title %>">
-            <%= post.title %>
-            <span class="comments">(<%= post.comments.length %>)</span>
+        <tr>
+          <td class="num"><%= post.numId %></td>
+          <td class="title">
+            <a href="/posts/<%= post._id + query %>">
+              <span class="highlight" data-highlight="<%= search.highlight.title %>"><%= post.title %>
+              <span class="comments">(<%= post.comments.length %>)</span>
+            </a>
           </td>
-          <td><%= post.views %></td>
-          <td><%= post.getFormattedDate(post.createdAt) %></td>
-          <td class="highlight" data-highlight="<%= search.highlight.author %>"><%= post.author.nickname %></td>
+          <td class="views"><%= post.views %></td>
+          <td class="author highlight" data-highlight="<%= search.highlight.author %>"><%= post.author.nickname %></td>
+          <td class="date"><%= post.getFormattedDate(post.createdAt) %></td>
         </tr>
       <% }) %>
     </tbody>
@@ -111,9 +113,9 @@
           cvMinLenErrMsg="It should be at least 3 characters"
           type="text" name="searchText" value="<%= select?search.searchText:"" %>"
           <%= search.searchType=="author!"?"disabled":"" %>>
-        <button type="submit" <%= search.searchType=="author!"?"disabled":"" %>>search</button>
+        <input class="button" type="submit"  value="Search"<%= search.searchType=="author!"?"disabled":"" %>>
         <%if(search.searchType){%>
-          <button type="button" onclick="window.location = '/posts?page=1'">cancel</button>
+          <a class="button" href="/posts?page=1">cancel</a>
         <%}%>
         <div class="message" id="searchError"></div>
       </form>

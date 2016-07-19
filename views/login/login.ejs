@@ -13,8 +13,8 @@
 <!-- views/login/login.ejs -->
 <div class="message"><%= loginMessage %></div>
 <div class="buttons">
-  <button onclick="location.href='/'" class="float_left">Home</button>
-  <button onclick="location.href='/users/new'" class="float_right">Sign Up</button>
+  <a href="/" class="button float_left">Home</a>
+  <a href="/users/new" class=" button float_right">Sign Up</a>
 </div>
 <h3>Login</h3>
 <form class="checkValidation" action="/login" method="post">
@@ -34,7 +34,7 @@
     <% }) %>
   </div>
   <div class="buttons">
-    <button type="submit">Submit</button>
+    <input class="button" type="submit" value="Submit">
   </div>
 </form>
 
