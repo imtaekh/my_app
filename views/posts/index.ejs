@@ -48,7 +48,13 @@
           <td class="num"><%= post.numId %></td>
           <td class="title">
             <a href="/posts/<%= post._id + query %>">
-              <span class="highlight" data-highlight="<%= search.highlight.title %>"><%= post.title %>
+              <span class="highlight" data-highlight="<%= search.highlight.title %>">
+                <% if(post.title && post.title.length > 32 ){ %>
+                  <%= post.title.substring(0,32) %> ...
+                <% } else { %>
+                  <%= post.title %>
+                <% } %>
+              </span>
               <span class="comments">(<%= post.comments.length %>)</span>
             </a>
           </td>
